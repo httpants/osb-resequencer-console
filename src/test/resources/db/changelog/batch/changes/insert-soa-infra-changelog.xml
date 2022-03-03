@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="asimmirza (generated)" id="11">
+        <insert tableName="osb_group_status">
+            <column name="id" value="TMozVNKrthlXaTLwZb3FQ0t6CRJFLUqt1kQnXVSVG7A="/>
+            <column name="component_dn" value="Pipeline$sequencer$proxy$GreetingService"/>
+            <column name="operation" value="greet"/>
+            <column name="group_id" value="group_1"/>
+            <column name="status" valueNumeric="3"/>
+            <column name="last_received_time" value="28-09-20 08:59:59.965869"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet author="asimmirza (generated)" id="12">
+        <insert tableName="osb_resequencer_message">
+            <column name="id" value="7f000101.N11aaaf6e.Ne.174c2c3ffd8.N7fdaGreetingService"/>
+            <column name="owner_id" value="TMozVNKrthlXaTLwZb3FQ0t6CRJFLUqt1kQnXVSVG7A="/>
+            <column name="component_dn" value="Pipeline$sequencer$proxy$GreetingService"/>
+            <column name="operation" value="greet"/>
+            <column name="group_id" value="group_1"/>
+            <column name="creation_date" value="28-09-20 08:59:59.965869"/>
+            <column name="status" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="asimmirza (generated)" id="13">
+        <insert tableName="osb_resequencer_message">
+            <column name="id" value="7f000101.N11aaaf6e.N12.174c2c3fecf.N7fd7GreetingService"/>
+            <column name="owner_id" value="TMozVNKrthlXaTLwZb3FQ0t6CRJFLUqt1kQnXVSVG7A="/>
+            <column name="component_dn" value="Pipeline$sequencer$proxy$GreetingService"/>
+            <column name="operation" value="greet"/>
+            <column name="group_id" value="group_1"/>
+            <column name="creation_date" value="28-09-20 08:59:59.974375"/>
+            <column name="status" valueNumeric="0"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="asimmirza (generated)" id="14">
+        <insert tableName="osb_resequencer_message">
+            <column name="id" value="7f000101.N11aaaf6e.N25.174be2ccbbf.N7fdcGreetingService"/>
+            <column name="owner_id" value="TMozVNKrthlXaTLwZb3FQ0t6CRJFLUqt1kQnXVSVG7A="/>
+            <column name="component_dn" value="Pipeline$sequencer$proxy$GreetingService"/>
+            <column name="operation" value="greet"/>
+            <column name="group_id" value="group_1"/>
+            <column name="creation_date" value="28-09-20 08:59:59.982111"/>
+            <column name="status" valueNumeric="0"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

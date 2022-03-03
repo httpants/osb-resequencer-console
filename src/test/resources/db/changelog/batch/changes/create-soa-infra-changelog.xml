@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="asimmirza (generated)" id="1601276386767-111">
+        <createTable tableName="OSB_GROUP_STATUS" tablespace="DEV_SOAINFRA">
+            <column name="ID" type="VARCHAR2(100 BYTE)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="OSB_GROUP_STATUS_PK"/>
+            </column>
+            <column name="COMPONENT_DN" type="VARCHAR2(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OPERATION" type="VARCHAR2(1000 BYTE)"/>
+            <column name="GROUP_ID" type="VARCHAR2(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_RECEIVED_TIME" type="TIMESTAMP(6)"/>
+            <column name="STATUS" type="NUMBER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="asimmirza (generated)" id="1601276386767-1122">
+        <createIndex indexName="OSB_GROUP_STATUS_INDEX1" tableName="OSB_GROUP_STATUS">
+            <column name="STATUS"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="asimmirza (generated)" id="1601276386767-1123">
+        <createIndex indexName="OSB_GROUP_STATUS_INDEX2" tableName="OSB_GROUP_STATUS">
+            <column name="COMPONENT_DN"/>
+            <column name="OPERATION"/>
+            <column name="GROUP_ID"/>
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="asimmirza (generated)" id="1601148375608-116">
+        <createTable tableName="OSB_RESEQUENCER_MESSAGE" tablespace="DEV_SOAINFRA">
+            <column name="ID" type="VARCHAR2(100 BYTE)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="OSB_RESEQUENCER_MESSAGE_PK"/>
+            </column>
+            <column name="OWNER_ID" type="VARCHAR2(100)"/>
+            <column name="COMPONENT_DN" type="VARCHAR2(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OPERATION" type="VARCHAR2(1000)"/>
+            <column name="GROUP_ID" type="VARCHAR2(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATION_DATE" type="TIMESTAMP(6)"/>
+            <column name="STATUS" type="NUMBER"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="asimmirza (generated)" id="1601276386767-1126">
+        <createIndex indexName="OSB_RESQ_MSG_INDEX2" tableName="OSB_RESEQUENCER_MESSAGE">
+            <column name="COMPONENT_DN"/>
+            <column name="OPERATION"/>
+            <column name="GROUP_ID"/>
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="asimmirza (generated)" id="1601276386767-1474">
+        <addForeignKeyConstraint baseColumnNames="OWNER_ID" baseTableName="OSB_RESEQUENCER_MESSAGE"
+                                 constraintName="OSB_GROUP_STATUS_FK1" deferrable="false" initiallyDeferred="false"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID"
+                                 referencedTableName="OSB_GROUP_STATUS"/>
+    </changeSet>
+
+
+</databaseChangeLog>

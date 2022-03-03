@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: RetryProcessor
+  batch:
+    job:
+      enabled: false
+  jackson:
+    serialization.indent_output: true
+    serialization.write_dates_as_timestamps: false
+  main:
+    banner-mode: log
+  mvc:
+    ignoreDefaultModelOnRedirect: true
+  freemarker:
+    settings:
+      time_zone: Australia/Brisbane
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    database: ORACLE
+    show-sql: true
+    properties:
+      hibernate.hbm2ddl.auto: none
+      hibernate.jdbc.fetch_size: 200
+      hibernate.jdbc.batch_size: 100
+      hibernate.show_sql: false
+      hibernate.format_sql: true
+      hibernate.jdbc.time_zone: UTC
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    ROOT: WARN
+    au.com.energyq.dms.batch: DEBUG
+
+info:
+  project:
+    version: 0.0.1-SNAPSHOT
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
+
+# ===================================================================
+# Application specific properties
+# ===================================================================
+datasources:
+  retry-processor-datasource-jndi-name: wls.db.SeqRetryProcessor
+  soa-infra-datasource-jndi-name: jdbc.SOADataSource
+
+application:
+  defaults:
+    retriesEnabled: true
+    retries: 5
+    delay: 120
+    delayFactor: 3
+  retryJobSchedule: 0 0/1 * * * ?
+  purgeJobSchedule: 0 0/30 * * * ?
+  purgeOsbResequencerJobSchedule: 0 0 1 * * ?
+  purgeSpringBatchJobSchedule: 0 30 0 * * ?  
+  iconsoleSearchUrl: https://smwlsdv6.wip.services.local:14147/iconsole/searchAuditData.do

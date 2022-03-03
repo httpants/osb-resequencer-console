@@ -1,0 +1,48 @@
+domainInfo:
+  AdminUserName: weblogic
+  AdminPassword: welcome1
+topology:
+  Name: base_domain
+  Server:
+    AdminServer:
+      ListenPort: 10001
+      SSL:
+        Enabled: true
+        TwoWaySSLEnabled: true
+        ListenPort: 10002
+resources:
+  JDBCSystemResource:
+    wls.db.SeqRetryProcessor:
+      Target: AdminServer
+      JdbcResource:
+        DatasourceType: GENERIC
+        JDBCConnectionPoolParams:
+          StatementCacheSize: 0
+          TestTableName: SQL SELECT 1 FROM DUAL
+        JDBCDataSourceParams:
+          JNDIName: wls.db.SeqRetryProcessor
+          GlobalTransactionsProtocol: None
+        JDBCDriverParams:
+          PasswordEncrypted: 'seq_retry_processor'
+          URL: 'jdbc:oracle:thin:@//localhost:1521/XE'
+          DriverName: oracle.jdbc.OracleDriver
+          Properties:
+            user:
+              Value: seq_retry_processor
+    SOADataSource:
+      Target: AdminServer
+      JdbcResource:
+        DatasourceType: GENERIC
+        JDBCConnectionPoolParams:
+          StatementCacheSize: 0
+          TestTableName: SQL SELECT 1 FROM DUAL
+        JDBCDataSourceParams:
+          JNDIName: jdbc/SOADataSource
+          GlobalTransactionsProtocol: TwoPhaseCommit
+        JDBCDriverParams:
+          PasswordEncrypted: 'password'
+          URL: 'jdbc:oracle:thin:@//localhost:1521/XE'
+          DriverName: oracle.jdbc.xa.client.OracleXADataSource
+          Properties:
+            user:
+              Value: OSEF_SOAINFRA

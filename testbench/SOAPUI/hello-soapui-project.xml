@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9c8daa10-6d30-4e94-b875-723fc90423c5" activeEnvironment="Default" name="hello" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2b1306b6-45ee-4b5b-ad81-ddcc38bfcb1d" wsaVersion="NONE" name="GreetingSoap12Binding" type="wsdl" bindingName="{http://test.com}GreetingSoap12Binding" soapVersion="1_2" anonymous="optional" definition="file:/Users/asimmirza/Desktop/hello.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.203.141:7003/sequencer/greeting?wsdl"><con:part><con:url>http://192.168.203.141:7003/sequencer/greeting?wsdl</con:url><con:content><![CDATA[<WL5G3N0:definitions targetNamespace="http://test.com" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://test.com" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <WL5G3N0:types>
+    <xs:schema blockDefault="#all" elementFormDefault="qualified" targetNamespace="http://test.com" xmlns:test="http://test.com" xmlns:tns="http://test.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="greetingRequest" type="test:greetingRequestType"/>
+      <xs:complexType name="greetingRequestType">
+        <xs:sequence>
+          <xs:element name="greeting" type="xs:string"/>
+          <xs:element name="group" type="xs:string"/>
+          <xs:element name="index" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="GreetingMessage">
+    <WL5G3N0:part element="WL5G3N1:greetingRequest" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="Greeting">
+    <WL5G3N0:operation name="greet">
+      <WL5G3N0:input message="WL5G3N1:GreetingMessage"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="GreetingSoap12Binding" type="WL5G3N1:Greeting">
+    <WL5G3N2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="greet">
+      <WL5G3N2:operation soapAction="http://test.com/test/greetings"/>
+      <WL5G3N0:input>
+        <WL5G3N2:body use="literal"/>
+      </WL5G3N0:input>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="GreetingService">
+    <WL5G3N0:documentation>OSB Service</WL5G3N0:documentation>
+    <WL5G3N0:port binding="WL5G3N1:GreetingSoap12Binding" name="GreetingSoap12">
+      <WL5G3N2:address location="http://192.168.203.141:7003/sequencer/greeting"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:8088/mockGreetingSoap12Binding</con:endpoint><con:endpoint>https://smsoadv6.services.local:14133/sequencer/greeting</con:endpoint></con:endpoints><con:operation id="edebea21-e5f6-4858-9d1c-70213611baa5" isOneWay="false" action="http://test.com/test/greetings" name="greet" bindingOperationName="greet" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="163cafa6-eb68-44ba-bae9-8c1605e86eba" name="req1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://smsoadv6.services.local:14133/sequencer/greeting</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:test="http://test.com">
+   <soap:Header/>
+   <soap:Body>
+      <test:greetingRequest>
+         <test:greeting>one</test:greeting>
+         <test:group>test1</test:group>
+         <test:index>1</test:index>
+      </test:greetingRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.com/Greeting/greetRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="b5e16587-9696-4930-9e2c-64ea9ab11e4c" name="req2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://smsoadv6.services.local:14133/sequencer/greeting</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:test="http://test.com">
+   <soap:Header/>
+   <soap:Body>
+      <test:greetingRequest>
+         <test:greeting>two</test:greeting>
+         <test:group>test1</test:group>
+         <test:index>2</test:index>
+      </test:greetingRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.com/Greeting/greetRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="a2c62d95-d0b8-4df9-9bd2-ba68c81d5e33" name="req3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://smsoadv6.services.local:14133/sequencer/greeting</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:test="http://test.com">
+   <soap:Header/>
+   <soap:Body>
+      <test:greetingRequest>
+         <test:greeting>three</test:greeting>
+         <test:group>test1</test:group>
+         <test:index>3</test:index>
+      </test:greetingRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.com/Greeting/greetRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="3cad12f9-42a8-42d8-9900-dc44400a21e8" port="8088" path="/mockGreetingSoap12Binding" host="MacBook-Pro.local" name="GreetingSoap12Binding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="greet" id="7229cbf2-72a2-4d82-a356-994f77a3f5b5" interface="GreetingSoap12Binding" operation="greet"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="bcf0fbbd-8fad-4204-8299-ccf0463f81b7" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:script>//Thread.sleep(10000)
+//mockRequest.getHttpResponse().sendError(500)</con:script><con:responseContent/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

@@ -1,0 +1,105 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="af100"
+		context="seq-retry-processor-database" id="20210216-1">
+		<sqlFile dbms="oracle" path="/org/springframework/batch/core/schema-oracle10g.sql" />
+		<sqlFile dbms="hsqldb" path="/org/springframework/batch/core/schema-hsqldb.sql" />
+	</changeSet>
+
+	<include file="/META-INF/liquibase/schedlock-changelog.xml" context="seq-retry-processor-database" />
+
+	<changeSet author="af100" context="seq-retry-processor-database" id="20210903-1">
+
+		<createTable tableName="OSB_RETRY_MESSAGE">
+			<column name="ID" type="VARCHAR2(100)">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="MESSAGE_ID" type="VARCHAR2(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="OWNER_ID" type="VARCHAR2(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="COMPONENT_DN" type="VARCHAR2(1000)">
+				<constraints nullable="false" />
+			</column>
+			<column name="GROUP_ID" type="VARCHAR2(1000)">
+				<constraints nullable="false" />
+			</column>
+			<column name="RETRY_DATE" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createSequence
+			sequenceName="OSB_RETRY_MESSAGE_SEQ"  
+			cacheSize="20"  
+            incrementBy="1"  
+            minValue="1"  
+            ordered="true"  
+            startValue="1"/>
+            
+        <sql endDelimiter="/" dbms="oracle">
+        CREATE OR REPLACE TRIGGER OSB_RETRY_MESSAGE_TRG 
+			BEFORE INSERT ON OSB_RETRY_MESSAGE 
+			FOR EACH ROW 
+		BEGIN
+   			IF INSERTING AND :NEW.ID IS NULL THEN
+			SELECT OSB_RETRY_MESSAGE_SEQ.NEXTVAL INTO :NEW.ID FROM SYS.DUAL;
+    		END IF;
+		END;
+		/
+        </sql>  
+        
+	</changeSet>
+  
+  <changeSet author="af100" id="20220215-1">
+
+    <createTable tableName="OSB_RETRY_CONFIG">
+      <column name="COMPONENT_DN" type="VARCHAR2(1000)">
+        <constraints nullable="false" />
+      </column>
+      <column name="OPERATION" type="VARCHAR2(1000)">
+        <constraints nullable="false" />
+      </column>
+      <column name="RETRY_LIMIT" type="INT"/>
+      <column name="DELAY" type="INT"/>
+      <column name="DELAY_FACTOR" type="INT"/>
+    </createTable>
+    
+    <addPrimaryKey columnNames="COMPONENT_DN, OPERATION" tableName="OSB_RETRY_CONFIG" constraintName="PK_OSB_RETRY_CONFIG"/>
+        
+  </changeSet>
+  
+  <changeSet author="af100" id="20220217-1">
+
+    <createTable tableName="GLOBAL_CONFIG">
+      <column name="ID" type="VARCHAR2(32)">
+        <constraints nullable="false" primaryKey="true" />
+      </column>
+      <column name="RETRIES_ENABLED" type="CHAR(1)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RETRY_LIMIT" type="SMALLINT"/>
+      <column name="DELAY" type="SMALLINT"/>
+      <column name="DELAY_FACTOR" type="SMALLINT"/>
+    </createTable>
+    
+    <sql dbms="oracle">
+    ALTER TABLE GLOBAL_CONFIG 
+    ADD CONSTRAINT CHK_GLBCFG_ID
+      CHECK (ID = 'resequencer-retry-processor');
+      
+    ALTER TABLE GLOBAL_CONFIG 
+    ADD CONSTRAINT CHK_GLBCFG_RETRIES_ENABLED
+      CHECK (RETRIES_ENABLED IN ('Y','N'));
+    </sql>
+        
+  </changeSet>
+
+</databaseChangeLog>
